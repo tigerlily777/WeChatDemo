@@ -72,13 +72,14 @@ private fun WeChatBottomBar(selectId: Int) {
 @Composable
 private fun TabItem(@DrawableRes iconId: Int, title: String, tint: Color, modifier: Modifier) {
     Column(
-        modifier = Modifier.padding(vertical = 8.dp),
+        modifier = modifier.padding(vertical = 8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Icon(
             painter = painterResource(iconId),
             contentDescription = title,
             modifier = Modifier.size(24.dp),
+            tint = tint
         )
         Text(text = title,
             fontSize = 11.sp,
