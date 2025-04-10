@@ -75,14 +75,14 @@ private val NewYearColorPalette = WeChatDemoColors(
     chatPageBgAlpha = 1f,
 )
 
-private val LocalweChatDemoColors = compositionLocalOf {
+private val LocalWeChatDemoColors = compositionLocalOf {
     LightColorPalette
 }
 
-object weChatDemoTheme {
+object WeChatDemoTheme {
     val colors: WeChatDemoColors
         @Composable
-        get() = LocalweChatDemoColors.current
+        get() = LocalWeChatDemoColors.current
     enum class Theme {
         Light, Dark, NewYear
     }
@@ -148,11 +148,11 @@ class WeChatDemoColors(
 }
 
 @Composable
-fun WeChatDemoTheme(theme: weChatDemoTheme.Theme = weChatDemoTheme.Theme.Light, content: @Composable() () -> Unit) {
+fun WeChatDemoTheme(theme: WeChatDemoTheme.Theme = WeChatDemoTheme.Theme.Light, content: @Composable() () -> Unit) {
     val targetColors = when (theme) {
-        weChatDemoTheme.Theme.Light -> LightColorPalette
-        weChatDemoTheme.Theme.Dark -> DarkColorPalette
-        weChatDemoTheme.Theme.NewYear -> NewYearColorPalette
+        WeChatDemoTheme.Theme.Light -> LightColorPalette
+        WeChatDemoTheme.Theme.Dark -> DarkColorPalette
+        WeChatDemoTheme.Theme.NewYear -> NewYearColorPalette
     }
 
     val bottomBar = animateColorAsState(targetColors.bottomBar, TweenSpec(600))
@@ -195,7 +195,7 @@ fun WeChatDemoTheme(theme: weChatDemoTheme.Theme = weChatDemoTheme.Theme.Light, 
         chatPageBgAlpha = chatPageBgAlpha.value,
     )
 
-    CompositionLocalProvider(LocalweChatDemoColors provides colors) {
+    CompositionLocalProvider(LocalWeChatDemoColors provides colors) {
         MaterialTheme(
             shapes = shapes,
             content = content
