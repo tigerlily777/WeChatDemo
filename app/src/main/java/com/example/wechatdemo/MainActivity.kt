@@ -21,9 +21,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.wechatdemo.ui.theme.WeChatDemoTheme
-import com.example.wechatdemo.ui.theme.black
-import com.example.wechatdemo.ui.theme.green3
-import com.example.wechatdemo.ui.theme.white1
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +29,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             WeChatDemoTheme {
                 Column {
-                    //WeChatBottomBar()
+                    WeChatBottomBar(0)
                 }
             }
         }
@@ -41,30 +38,30 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 private fun WeChatBottomBar(selectId: Int) {
-    Row (modifier = Modifier.background(white1)){
+    Row(modifier = Modifier.background(WeChatDemoTheme.colors.bottomBar)) {
         TabItem(
             iconId = if (selectId == 0) R.drawable.ic_chat_filled else R.drawable.ic_chat_outlined,
             title = "Chat",
             modifier = Modifier.weight(1f),
-            tint = if (selectId == 0)  green3 else black
+            tint = if (selectId == 0) WeChatDemoTheme.colors.iconCurrent else WeChatDemoTheme.colors.icon
         )
         TabItem(
             if (selectId == 1) R.drawable.ic_contacts_filled else R.drawable.ic_contacts_outlined,
             "Contacts",
             modifier = Modifier.weight(1f),
-            tint = if (selectId == 1) green3 else black
+            tint = if (selectId == 1) WeChatDemoTheme.colors.iconCurrent else WeChatDemoTheme.colors.icon
         )
         TabItem(
             if (selectId == 2) R.drawable.ic_discovery_filled else R.drawable.ic_discovery_outlined,
             "Discover",
             modifier = Modifier.weight(1f),
-            tint = if (selectId == 2) green3 else black
+            tint = if (selectId == 2) WeChatDemoTheme.colors.iconCurrent else WeChatDemoTheme.colors.icon
         )
         TabItem(
-            iconId =  if (selectId == 3) R.drawable.ic_me_filled else R.drawable.ic_me_outlined,
+            iconId = if (selectId == 3) R.drawable.ic_me_filled else R.drawable.ic_me_outlined,
             title = "Me",
             modifier = Modifier.weight(1f),
-            tint = if (selectId == 3) green3 else black
+            tint = if (selectId == 3) WeChatDemoTheme.colors.iconCurrent else WeChatDemoTheme.colors.icon
         )
     }
 }
@@ -81,20 +78,45 @@ private fun TabItem(@DrawableRes iconId: Int, title: String, tint: Color, modifi
             modifier = Modifier.size(24.dp),
             tint = tint
         )
-        Text(text = title,
+        Text(
+            text = title,
             fontSize = 11.sp,
-            color = tint)
+            color = tint
+        )
     }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun TabItemPreview() {
-    TabItem(iconId = R.drawable.ic_chat_outlined, title = "Chat", modifier = Modifier, tint = black)
+    TabItem(
+        iconId = R.drawable.ic_chat_outlined,
+        title = "Chat",
+        modifier = Modifier,
+        tint = WeChatDemoTheme.colors.icon
+    )
+}
+
+@Preview(showBackground = true)
+@Composable
+fun WeChatBottomBarPreviewLight() {
+    WeChatDemoTheme(theme = WeChatDemoTheme.Theme.Light) {
+        WeChatBottomBar(selectId = 0)
+    }
 }
 
 @Preview(showBackground = true)
 @Composable
 fun WeChatBottomBarPreview() {
-    WeChatBottomBar(selectId = 0)
+    WeChatDemoTheme(theme = WeChatDemoTheme.Theme.Dark) {
+        WeChatBottomBar(selectId = 0)
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun WeChatBottomBarPreviewNewYear() {
+    WeChatDemoTheme(theme = WeChatDemoTheme.Theme.NewYear) {
+        WeChatBottomBar(selectId = 0)
+    }
 }
