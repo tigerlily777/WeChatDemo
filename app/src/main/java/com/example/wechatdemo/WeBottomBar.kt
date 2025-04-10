@@ -2,6 +2,7 @@ package com.example.wechatdemo
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.padding
@@ -9,6 +10,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -19,30 +24,47 @@ import androidx.compose.ui.unit.sp
 import com.example.wechatdemo.ui.theme.WeChatDemoTheme
 
 @Composable
-fun WeChatBottomBar(selectId: Int) {
+fun WeChatBottomBar(selectId: Int, onSelectedChange: (Int) -> Unit) {
+
     Row(modifier = Modifier.background(WeChatDemoTheme.colors.bottomBar)) {
         TabItem(
             iconId = if (selectId == 0) R.drawable.ic_chat_filled else R.drawable.ic_chat_outlined,
             title = "Chat",
-            modifier = Modifier.weight(1f),
+            modifier = Modifier
+                .weight(1f)
+                .clickable {
+                    onSelectedChange(0)
+                },
             tint = if (selectId == 0) WeChatDemoTheme.colors.iconCurrent else WeChatDemoTheme.colors.icon
         )
         TabItem(
             if (selectId == 1) R.drawable.ic_contacts_filled else R.drawable.ic_contacts_outlined,
             "Contacts",
-            modifier = Modifier.weight(1f),
+            modifier = Modifier
+                .weight(1f)
+                .clickable {
+                    onSelectedChange(1)
+                },
             tint = if (selectId == 1) WeChatDemoTheme.colors.iconCurrent else WeChatDemoTheme.colors.icon
         )
         TabItem(
             if (selectId == 2) R.drawable.ic_discovery_filled else R.drawable.ic_discovery_outlined,
             "Discover",
-            modifier = Modifier.weight(1f),
+            modifier = Modifier
+                .weight(1f)
+                .clickable {
+                    onSelectedChange(2)
+                },
             tint = if (selectId == 2) WeChatDemoTheme.colors.iconCurrent else WeChatDemoTheme.colors.icon
         )
         TabItem(
             iconId = if (selectId == 3) R.drawable.ic_me_filled else R.drawable.ic_me_outlined,
             title = "Me",
-            modifier = Modifier.weight(1f),
+            modifier = Modifier
+                .weight(1f)
+                .clickable {
+                    onSelectedChange(3)
+                },
             tint = if (selectId == 3) WeChatDemoTheme.colors.iconCurrent else WeChatDemoTheme.colors.icon
         )
     }
@@ -83,7 +105,9 @@ fun TabItemPreview() {
 @Composable
 fun WeChatBottomBarPreviewLight() {
     WeChatDemoTheme(theme = WeChatDemoTheme.Theme.Light) {
-        WeChatBottomBar(selectId = 0)
+
+        var selectedTab by remember { mutableIntStateOf(0) }
+        WeChatBottomBar(selectId = selectedTab) { selectedTab = it }
     }
 }
 
@@ -91,7 +115,8 @@ fun WeChatBottomBarPreviewLight() {
 @Composable
 fun WeChatBottomBarPreview() {
     WeChatDemoTheme(theme = WeChatDemoTheme.Theme.Dark) {
-        WeChatBottomBar(selectId = 0)
+        var selectedTab by remember { mutableIntStateOf(0) }
+        WeChatBottomBar(selectId = selectedTab, onSelectedChange = { selectedTab = it })
     }
 }
 
@@ -99,6 +124,7 @@ fun WeChatBottomBarPreview() {
 @Composable
 fun WeChatBottomBarPreviewNewYear() {
     WeChatDemoTheme(theme = WeChatDemoTheme.Theme.NewYear) {
-        WeChatBottomBar(selectId = 0)
+        var selectedTab by remember { mutableIntStateOf(0) }
+        WeChatBottomBar(selectId = selectedTab, onSelectedChange = { selectedTab = it })
     }
 }
